@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: docker-registry.ebrains.eu/nest/nest-desktop:3.1
+
+%labels
+  Author Sebastian Spreizer <spreizer@web.de>
+
+%startscript
+   nginx

@@ -1,0 +1,11 @@
+Bootstrap: docker
+From: docker-registry.ebrains.eu/nest/nest-simulator:3.3
+
+%labels
+  Author Sebastian Spreizer <spreizer@web.de>
+
+%environment
+  . /opt/nest/bin/nest_vars.sh
+
+%runscript
+  nest-server start

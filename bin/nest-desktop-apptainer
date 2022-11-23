@@ -1,0 +1,97 @@
+#!/bin/bash
+# nest-desktop-apptainer
+
+FAKEROOT=false
+INSTANCES="nest-desktop nest-simulator"
+
+usage() {
+  echo "NEST Desktop Apptainer"
+  echo "----------------------"
+  echo "Usage: nest-desktop-apptainer build|list|restart|start|status|stop [-f] [nest-desktop|nest-simulator]"
+  echo ""
+  echo "Commands:"
+  echo "  build       build apptainer containers for instances"
+  echo "  list        list instances"
+  echo "  restart     restart (i.e. stop and start) instances"
+  echo "  status      display the status of instances"
+  echo "  start       start instances"
+  echo "  stop        stop instances"
+  echo
+  echo "Options:"
+  echo "  -f          use fakeroot for building" >&2; exit 1
+
+}
+
+_build_fakeroot() {
+  apptainer build --fakeroot images/$1.sif recipes/$1.def
+}
+
+_build_root() {
+  sudo apptainer build images/$1.sif recipes/$1.def
+}
+
+build() {
+  if [[ $FAKEROOT == true ]]; then
+    for INSTANCE in $INSTANCES ; do
+      _build_fakeroot $INSTANCE
+    done
+  else
+    for INSTANCE in $INSTANCES ; do
+      _build_root $INSTANCE
+    done
+  fi
+}
+
+list() {
+  for INSTANCE in $INSTANCES ; do
+    echo $INSTANCE
+  done
+}
+
+_start() {
+  apptainer instance start --writable-tmpfs images/$1.sif $1
+}
+
+start() {
+  for INSTANCE in $INSTANCES ; do
+    _start $INSTANCE
+  done
+}
+
+status() {
+  apptainer instance list
+}
+
+_stop() {
+  apptainer instance stop $1
+}
+
+stop() {
+  for INSTANCE in $INSTANCES ; do
+    _stop $INSTANCE
+  done
+}
+
+CMD=$1; shift
+while getopts "f" flag; do
+  case ${flag} in
+    f) FAKEROOT=true ;;
+  esac
+done
+
+for arg in "$@"; do
+  case ${arg} in
+    nest-desktop) INSTANCES='nest-desktop' ;;
+    nest-simulator) INSTANCES='nest-simulator' ;;
+  esac
+done
+
+case "$CMD" in
+  build)   build ;;
+  list)    list ;;
+  restart) stop; sleep .5; start ;;
+  start)   start ;;
+  status)  status ;;
+  stop)    stop ;;
+  *)       usage ;;
+esac
