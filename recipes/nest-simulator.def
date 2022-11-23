@@ -7,5 +7,5 @@ From: docker-registry.ebrains.eu/nest/nest-simulator:3.3
 %environment
   . /opt/nest/bin/nest_vars.sh
 
-%runscript
+%startscript
   nest-server start

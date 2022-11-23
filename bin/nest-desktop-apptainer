@@ -49,7 +49,11 @@ list() {
 }
 
 _start() {
-  apptainer instance start --writable-tmpfs images/$1.sif $1
+  case $1 in
+    nest-desktop) OPTIONS='--writable-tmpfs' ;;
+    nest-simulator) OPTIONS='' ;;
+  esac
+  apptainer instance start $OPTIONS images/$1.sif $1
 }
 
 start() {
