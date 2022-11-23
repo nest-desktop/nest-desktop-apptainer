@@ -7,6 +7,10 @@ For more information, please see the
 as well as the
 [User Documentation Page of NEST Simulator](https://nest-simulator.readthedocs.io).
 
+## Security considerations
+
+As explained above, the `/exec` route of the NEST Server API allows you to run custom Python scripts within the NEST Server context. This can greatly simplify your workflow in situations where you already have the simulation description in the form of a Python script. On the technical side, however, this route exposes a potential risk for the remote execution of malicious code.
+
 ## Preparation
 
 #### Requirements
