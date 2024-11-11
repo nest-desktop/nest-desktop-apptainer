@@ -6,7 +6,9 @@ From: ubuntu:22.04
 
 %post
   apt update && DEBIAN_FRONTEND=noninteractive apt install -y \
+    chromium-browser \
     curl \
+    firefox \
     libasound2 \
     libatk-bridge2.0-0 \
     libgbm-dev \
@@ -14,7 +16,8 @@ From: ubuntu:22.04
     libgtk-3-0 \
     libgtkextra-dev \
     libnss3 \
-    libxtst-dev
+    libxtst-dev \
+    wget
 
   # for electron:serve
   apt update && DEBIAN_FRONTEND=noninteractive apt install -y wine-stable

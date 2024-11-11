@@ -1,8 +1,5 @@
 Bootstrap: docker
-From: nest/nest-desktop:3.3
+From: node:20-alpine
 
 %labels
   Author Sebastian Spreizer <spreizer@web.de>
-
-%startscript
-   nginx
