@@ -6,7 +6,9 @@ From: ubuntu:24.04
 
 %post
   apt update && DEBIAN_FRONTEND=noninteractive apt install -y \
+    chromium-browser \
     curl \
+    firefox \
     libasound2 \
     libatk-bridge2.0-0 \
     libgbm-dev \
@@ -14,13 +16,14 @@ From: ubuntu:24.04
     libgtk-3-0 \
     libgtkextra-dev \
     libnss3 \
-    libxtst-dev
+    libxtst-dev \
+    wget
 
   # for electron:serve
   apt update && DEBIAN_FRONTEND=noninteractive apt install -y wine-stable
   dpkg --add-architecture i386 && apt update && apt install -y wine32
 
-  curl -sL https://deb.nodesource.com/setup_22.x -o node_setup.sh
+  curl -sL https://deb.nodesource.com/setup_20.x -o node_setup.sh
   bash node_setup.sh
   apt install -y nodejs
   npm install -g npm yarn
