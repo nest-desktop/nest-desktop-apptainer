@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: nest/nest-simulator:3.8
+From: nest/nest-simulator:3.9
 
 %labels
   Author Sebastian Spreizer <spreizer@web.de>

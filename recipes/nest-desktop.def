@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: nest/nest-desktop:4.0
+From: nest/nest-desktop:4.2
 
 %labels
   Author Sebastian Spreizer <spreizer@web.de>
